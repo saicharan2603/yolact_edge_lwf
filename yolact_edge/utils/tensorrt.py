@@ -59,7 +59,7 @@ def convert_to_tensorrt(net, cfg, args, transform):
                     img = cv2.imread(path)
                     height, width, _ = img.shape
 
-                    img, _, _, _ = transform(img, np.zeros((1, height, width), dtype=np.float), np.array([[0, 0, 1, 1]]),
+                    img, _, _, _ = transform(img, np.zeros((1, height, width), dtype=np.float64), np.array([[0, 0, 1, 1]]),
                         {'num_crowds': 0, 'labels': np.array([0])})
 
                     images.append(torch.from_numpy(img).permute(2, 0, 1))

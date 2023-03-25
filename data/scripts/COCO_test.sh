@@ -31,7 +31,7 @@ fi
 # Download the image data.
 cd ./images
 echo "Downloading MSCOCO test images ..."
-curl -LO http://images.cocodataset.org/zips/test2017.zip
+wget http://images.cocodataset.org/zips/test2017.zip
 
 cd ../
 if [ ! -d annotations ]
@@ -42,7 +42,7 @@ fi
 # Download the annotation data.
 cd ./annotations
 echo "Downloading MSCOCO test info ..."
-curl -LO http://images.cocodataset.org/annotations/image_info_test2017.zip
+wget http://images.cocodataset.org/annotations/image_info_test2017.zip
 echo "Finished downloading. Now extracting ..."
 
 # Unzip data
