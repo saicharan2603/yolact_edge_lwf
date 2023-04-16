@@ -94,6 +94,9 @@ ENV/
 # weights
 weights/
 
+# temp folder
+.temp/
+
 #DS_Store
 .DS_Store
 
@@ -158,3 +161,5 @@ data/sbd
 data/video_files
 data/image_files
 data/calib_images
+data/cig_butts/
+vis_model_output_on_cig_data

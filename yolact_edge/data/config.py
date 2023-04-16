@@ -231,12 +231,12 @@ youtube_vis_dataset = dataset_base.copy({
 })
 
 
-lwf_coco2017_dataset = coco2017_dataset.copy({
-    'name': 'COCO 2017 Val Subset',
-    'train_info': './data/YoutubeVIS/annotations/instances_train2017_subset.json',
+lwf_coco2017_dataset = dataset_base.copy({
+    'name': 'COCO 2017 LWF',
+    'train_info': './data/coco/annotations/instances_train2017_subset.json',
     'valid_info': './data/coco/annotations/instances_val2017_subset.json',
 
-    'label_map': COCO_LABEL_MAP
+    'label_map': {1:1, 2:2}
 })
 
 

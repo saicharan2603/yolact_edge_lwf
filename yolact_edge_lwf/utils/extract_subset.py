@@ -27,7 +27,16 @@ def extract_subset(file_path, dump_path, categories):
     annotations = []
     for annotation in data['annotations']:
         if annotation['image_id'] in image_ids:
-            annotations.append(annotation)
+            if annotation['category_id'] in categories:
+                annotation['category_id'] = categories.index(annotation['category_id']) + 1
+                annotations.append(annotation)
+
+    # extract the categories
+    category_list = []
+    for category in data['categories']:
+        if category['id'] in categories:
+            category['id'] = categories.index(category['id']) + 1
+            category_list.append(category)
 
     # Extract the images that belong to the specified categories
     images = []
@@ -41,13 +50,15 @@ def extract_subset(file_path, dump_path, categories):
     subset['licenses'] = data['licenses']
     subset['images'] = images
     subset['annotations'] = annotations
-    subset['categories'] = data['categories']
+    subset['categories'] = category_list
 
     with open(dump_path, 'w') as f:
         json.dump(subset, f)
     
     # print the report of extraction
     print('Number of images extracted: ', len(images))
+    print('Number of annotations extracted: ', len(annotations))
+    print('Number of categories extracted: ', len(categories))
     print('Subset dumped at: ', dump_path)
     
     

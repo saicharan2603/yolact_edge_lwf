@@ -1259,6 +1259,7 @@ if __name__ == '__main__':
             else:
                 dataset = COCODetection(cfg.dataset.valid_images, cfg.dataset.valid_info,
                                         transform=BaseTransform(), has_gt=cfg.dataset.has_gt)
+
             prep_coco_cats()
         else:
             dataset = None
@@ -1273,6 +1274,7 @@ if __name__ == '__main__':
         logger.info('Model loaded.')
 
         convert_to_tensorrt(net, cfg, args, transform=BaseTransform())
+        # ignoring the tensorrt transform for the time being
 
         if args.cuda:
             net = net.cuda()
