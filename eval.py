@@ -978,7 +978,7 @@ def evaluate(net:Yolact, dataset, train_mode=False, train_cfg=None):
             if train_cfg is None:
                 train_cfg = cfg
 
-            from data.youtube_vis import YoutubeVISEval, collate_fn_youtube_vis_eval
+            from yolact_edge.data.youtube_vis import YoutubeVISEval, collate_fn_youtube_vis_eval
 
             eval_dataset = YoutubeVISEval(dataset, dataset_indices, args.max_images)
 

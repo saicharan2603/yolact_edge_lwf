@@ -54,6 +54,32 @@ COCO_LABEL_MAP = { 1:  1,  2:  2,  3:  3,  4:  4,  5:  5,  6:  6,  7:  7,  8:  8
                   74: 65, 75: 66, 76: 67, 77: 68, 78: 69, 79: 70, 80: 71, 81: 72,
                   82: 73, 84: 74, 85: 75, 86: 76, 87: 77, 88: 78, 89: 79, 90: 80}
 
+COCO_LVIS_CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
+                'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
+                'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog',
+                'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe',
+                'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee',
+                'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat',
+                'baseball glove', 'skateboard', 'surfboard', 'tennis racket',
+                'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl',
+                'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot',
+                'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch',
+                'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop',
+                'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven',
+                'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
+                'scissors', 'teddy bear', 'hair drier', 'toothbrush', 'air conditioner')
+
+COCO_LVIS_LABEL_MAP = { 1:  1,  2:  2,  3:  3,  4:  4,  5:  5,  6:  6,  7:  7,  8:  8,
+                   9:  9, 10: 10, 11: 11, 13: 12, 14: 13, 15: 14, 16: 15, 17: 16,
+                  18: 17, 19: 18, 20: 19, 21: 20, 22: 21, 23: 22, 24: 23, 25: 24,
+                  27: 25, 28: 26, 31: 27, 32: 28, 33: 29, 34: 30, 35: 31, 36: 32,
+                  37: 33, 38: 34, 39: 35, 40: 36, 41: 37, 42: 38, 43: 39, 44: 40,
+                  46: 41, 47: 42, 48: 43, 49: 44, 50: 45, 51: 46, 52: 47, 53: 48,
+                  54: 49, 55: 50, 56: 51, 57: 52, 58: 53, 59: 54, 60: 55, 61: 56,
+                  62: 57, 63: 58, 64: 59, 65: 60, 67: 61, 70: 62, 72: 63, 73: 64,
+                  74: 65, 75: 66, 76: 67, 77: 68, 78: 69, 79: 70, 80: 71, 81: 72,
+                  82: 73, 84: 74, 85: 75, 86: 76, 87: 77, 88: 78, 89: 79, 90: 80, 91:81}
+
 YOUTUBE_VIS_CLASSES = ('person', 'giant_panda', 'lizard', 'parrot', 'skateboard',
                        'sedan', 'ape', 'dog', 'snake', 'monkey', 'hand', 'rabbit',
                        'duck', 'cat', 'cow', 'fish', 'train', 'horse', 'turtle',
@@ -186,6 +212,16 @@ coco2017_dataset = dataset_base.copy({
 
     'label_map': COCO_LABEL_MAP
 })
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+coco2017_dataset_lwf = dataset_base.copy({
+    'name': 'COCO 2017',
+    
+    'train_info': './data/coco/annotations/instances_train2017.json',
+    'valid_info': './data/coco/annotations/instances_val2017_lwf.json',
+
+    'label_map': COCO_LVIS_LABEL_MAP,
+    'class_names': COCO_LVIS_CLASSES
+})
 
 coco2017_testdev_dataset = dataset_base.copy({
     'name': 'COCO 2017 Test-Dev',
@@ -224,7 +260,7 @@ youtube_vis_dataset = dataset_base.copy({
     'all_frame_direction': 'allway',
 
     'valid_info': './data/YoutubeVIS/annotations/valid.v4.json',
-    'valid_images': './data/YoutubeVIS/valid_all_frames/v4/',
+    'valid_images': './data/YoutubeVIS/train_all_frames/JPEGImages/',
 
     'images_per_video': 5,
     'is_video': True
@@ -235,8 +271,48 @@ lwf_coco2017_dataset = dataset_base.copy({
     'name': 'COCO 2017 LWF',
     'train_info': './data/coco/annotations/instances_train2017_subset.json',
     'valid_info': './data/coco/annotations/instances_val2017_subset.json',
+})
 
-    'label_map': {1:1, 2:2}
+coco_lvis_dataset = dataset_base.copy({
+    'name': 'COCO LVIS',
+
+    # Training images and annotations
+    'train_images': './data/coco/images/',
+    'train_info':   './data/LVIS/annotations/lvis_v1_train_subset.json',
+
+    # Calibration image folder for TensorRT INT8 conversion.
+    'calib_images': './data/coco/calib_images/',
+    
+    # Validation images and annotations.
+    'valid_images': './data/coco/images/',
+    'valid_info':   './data/LVIS/annotations/lvis_v1_val_subset.json',
+
+    'has_gt': True,
+
+    'class_names': COCO_LVIS_CLASSES,
+
+    'label_map': COCO_LVIS_LABEL_MAP
+})
+
+coco_lvis_dataset_unannotated = dataset_base.copy({
+    'name': 'COCO LVIS train Unannotated',
+    'valid_info': './data/LVIS/annotations/lvis_v1_train_subset_unannotated.json',
+    'has_gt': False,
+
+    'label_map': COCO_LABEL_MAP
+})
+
+coco_lvis_dataset_unannotated_val = coco_lvis_dataset_unannotated.copy({
+    'name': 'COCO LVIS val Unannotated',
+    'valid_info': './data/LVIS/annotations/lvis_v1_val_subset_unannotated.json',
+    'has_gt': False
+})
+
+coco_lvis_dataset_lwf = coco_lvis_dataset.copy({
+    'name': 'COCO LVIS LWF',
+
+    'train_info': './data/LVIS/annotations/lvis_v1_train_subset_lwf.json',
+    'valid_info': './data/LVIS/annotations/lvis_v1_val_subset_lwf.json'
 })
 
 
@@ -590,7 +666,7 @@ coco_base_config = Config({
     # Have a chance to scale down the image and pad (to emulate smaller detections)
     'augment_expand': True,
     # Potentialy sample a random crop from the image and put it in a random place
-    'augment_random_sample_crop': True,
+    'augment_random_sample_crop': False,
     # Mirror the image with a probability of 1/2
     'augment_random_mirror': True,
     # Flip the image vertically with a probability of 1/2
@@ -804,6 +880,21 @@ yolact_edge_config = yolact_base_config.copy({
     'torch2trt_prediction_module': True,
     'use_fast_nms': False
 })
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+yolact_edge_config_lwf = yolact_base_config.copy({
+    'name': 'yolact_base_lwf',
+
+    # Dataset stuff
+    'dataset': coco2017_dataset_lwf,
+    'num_classes': len(coco2017_dataset_lwf.class_names) + 1,
+
+    'torch2trt_max_calibration_images': 100,
+    'torch2trt_backbone_int8': True,
+    'torch2trt_protonet_int8': True,
+    'torch2trt_fpn': True,
+    'torch2trt_prediction_module': True,
+    'use_fast_nms': False
+})
 
 yolact_edge_mobilenetv2_config = yolact_edge_config.copy({
     'name': 'yolact_edge_mobilenetv2',
@@ -944,6 +1035,28 @@ yolact_edge_vid_trainflow_resnet50_config = yolact_edge_vid_trainflow_config.cop
 yolact_edge_youtubevis_resnet50_config = yolact_edge_youtubevis_config.copy({
     'name': 'yolact_edge_youtubevis_resnet50',
     'backbone': yolact_resnet50_config.backbone
+})
+
+yolact_edge_lvis_config = yolact_edge_config.copy({
+    'name': 'yolact_edge_lvis',
+
+    'dataset': coco_lvis_dataset,
+
+    'num_classes': len(coco_lvis_dataset.class_names) + 1,
+    'max_size': 512,
+
+    'torch2trt_max_calibration_images': 100,
+    'torch2trt_backbone_int8': True,
+    'torch2trt_protonet_int8': True,
+    'torch2trt_fpn': True,
+    'torch2trt_prediction_module': True,
+    'use_fast_nms': False
+})
+
+yolact_edge_lvis_config_lwf = yolact_edge_lvis_config.copy({
+    'name': 'yolact_edge_lvis_lwf',
+
+    'dataset': coco_lvis_dataset_lwf
 })
 
 # Default config

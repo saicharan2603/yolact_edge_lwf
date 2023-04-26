@@ -1,6 +1,7 @@
 import json
+import os
 
-def extract_subset(file_path, dump_path, categories):
+def extract_subset(file_path, categories):
     """Read the json file and extract the subset of images that belong to the
     specified categories.
 
@@ -51,6 +52,8 @@ def extract_subset(file_path, dump_path, categories):
     subset['images'] = images
     subset['annotations'] = annotations
     subset['categories'] = category_list
+
+    dump_path = os.path.splitext(file_path)[0]+'_subset.json'
 
     with open(dump_path, 'w') as f:
         json.dump(subset, f)

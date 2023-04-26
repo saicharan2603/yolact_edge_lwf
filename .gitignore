@@ -162,4 +162,5 @@ data/video_files
 data/image_files
 data/calib_images
 data/cig_butts/
+data/LVIS
 vis_model_output_on_cig_data

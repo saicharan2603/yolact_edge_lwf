@@ -379,7 +379,7 @@ class YoutubeVIS(data.Dataset):
                         raise ValueError("reseed")
                 else:
                     try:
-                        return_transform = self.transform(img, np.zeros((1, height, width), dtype=np.float),
+                        return_transform = self.transform(img, np.zeros((1, height, width), dtype=np.float64),
                                                   np.array([[0., 0., 1., 1.]]),
                                                   {'num_crowds': 0, 'labels': np.array([0])},
                                                       require_seeds=require_seeds, seeds=seeds)

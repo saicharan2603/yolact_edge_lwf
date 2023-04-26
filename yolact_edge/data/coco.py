@@ -203,7 +203,7 @@ class COCODetection(data.Dataset):
                 
                 target = np.hstack((boxes, np.expand_dims(labels, axis=1)))
             else:
-                img, _, _, _ = self.transform(img, np.zeros((1, height, width), dtype=np.float), np.array([[0, 0, 1, 1]]),
+                img, _, _, _ = self.transform(img, np.zeros((1, height, width), dtype=np.float64), np.array([[0, 0, 1, 1]]),
                     {'num_crowds': 0, 'labels': np.array([0])})
                 masks = None
                 target = None
